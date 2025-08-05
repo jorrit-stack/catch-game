@@ -1,19 +1,20 @@
 [build]
-  functions = "netlify/functions"
-  publish = "."
+functions = "netlify/functions"
+publish = "dist"
+command = "npm run build"
 
 [functions]
-  node_bundler = "esbuild"
+node_bundler = "esbuild"
 
 [[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+for = "/.netlify/functions/*"
 
-# Redirect API calls to functions
+[headers.values]
+Access-Control-Allow-Origin = "*"
+Access-Control-Allow-Headers = "Content-Type"
+Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200
