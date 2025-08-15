@@ -37,14 +37,6 @@ export function checkAchievements() {
         gameState.achievements.add('teleport');
         newAchievements.push('✨ Teleport Master!');
     }
-    if (gameState.score >= 100 && !gameState.achievements.has('rainbow')) {
-        gameState.achievements.add('rainbow');
-        newAchievements.push('🌈 Rainbow Warrior!');
-    }
-    if (gameState.streak >= 20 && !gameState.achievements.has('rainbow_streak')) {
-        gameState.achievements.add('rainbow_streak');
-        newAchievements.push('🦄 Unicorn Streak!');
-    }
 
     // Display new achievements
     newAchievements.forEach(achievement => {

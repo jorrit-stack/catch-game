@@ -4,7 +4,6 @@ import { soundManager } from './soundManager.js';
 import { checkThemeChange } from './themes.js';
 import { checkAchievements } from './achievements.js';
 import { updateVibeMessage, createCelebration, showPowerUp, removePowerUp } from './ui.js';
-import { createRainbowCelebration } from './ui.js';
 import { changeMovementPattern } from './movement.js';
 import { spawnEvilGuy } from './evilGuy.js';
 import { checkHighScoreDisplay } from './startScreen.js';
@@ -69,10 +68,6 @@ export function catchDancer(event) {
     if (gameState.streak >= 10 && gameState.streak % 5 === 0) {
         document.body.classList.add('screen-shake');
         setTimeout(() => document.body.classList.remove('screen-shake'), 500);
-        
-        // Add rainbow trail effect for high streaks
-        dancer.classList.add('rainbow-trail');
-        setTimeout(() => dancer.classList.remove('rainbow-trail'), 3000);
     }
 
     // Check for achievements
@@ -84,11 +79,6 @@ export function catchDancer(event) {
 
     // Create celebration effect
     createCelebration();
-    
-    // Special rainbow celebration for high scores
-    if (gameState.score > 0 && gameState.score % 25 === 0) {
-        setTimeout(() => createRainbowCelebration(), 500);
-    }
 
     // Update vibe message based on streak
     updateVibeMessage();
