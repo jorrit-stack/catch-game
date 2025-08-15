@@ -16,7 +16,14 @@ export function rotateVibeMessage() {
 
 export function createParticle() {
     const particle = document.createElement('div');
-    particle.className = 'particle';
+    
+    // 30% chance for rainbow particle
+    if (Math.random() < 0.3) {
+        particle.className = 'particle rainbow-particle';
+    } else {
+        particle.className = 'particle';
+    }
+    
     particle.style.left = Math.random() * 100 + '%';
     particle.style.animationDelay = Math.random() * 3 + 's';
     particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
@@ -30,35 +37,72 @@ export function createParticle() {
 
 export function createSparkle() {
     const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
+    
+    // 40% chance for rainbow sparkle
+    if (Math.random() < 0.4) {
+        sparkle.className = 'rainbow-sparkle';
+        sparkle.innerHTML = '🌈';
+    } else {
+        sparkle.className = 'sparkle';
+        sparkle.innerHTML = '✨';
+    }
+    
     sparkle.style.left = Math.random() * 100 + '%';
     sparkle.style.top = Math.random() * 100 + '%';
-    sparkle.innerHTML = '✨';
 
     document.body.appendChild(sparkle);
 
     setTimeout(() => {
         sparkle.remove();
-    }, 2000);
+    }, sparkle.className.includes('rainbow') ? 3000 : 2000);
 }
 
 export function createCelebration() {
     for (let i = 0; i < 5; i++) {
         setTimeout(() => {
             const celebration = document.createElement('div');
-            celebration.innerHTML = ['🎉', '✨', '🔥', '⚡', '🌟'][Math.floor(Math.random() * 5)];
+            
+            // Mix regular and rainbow celebrations
+            const isRainbow = Math.random() < 0.5;
+            if (isRainbow) {
+                celebration.className = 'rainbow-celebration';
+                celebration.innerHTML = ['🌈', '🎨', '🦄', '💫', '🌟'][Math.floor(Math.random() * 5)];
+            } else {
+                celebration.innerHTML = ['🎉', '✨', '🔥', '⚡', '🌟'][Math.floor(Math.random() * 5)];
+                celebration.style.animation = 'celebration-pop 1s ease-out forwards';
+            }
+            
             celebration.style.position = 'fixed';
             celebration.style.left = Math.random() * 100 + '%';
             celebration.style.top = Math.random() * 100 + '%';
             celebration.style.fontSize = '2rem';
             celebration.style.pointerEvents = 'none';
             celebration.style.zIndex = '1000';
-            celebration.style.animation = 'celebration-pop 1s ease-out forwards';
 
             document.body.appendChild(celebration);
 
-            setTimeout(() => celebration.remove(), 1000);
+            setTimeout(() => celebration.remove(), isRainbow ? 2000 : 1000);
         }, i * 100);
+    }
+}
+
+export function createRainbowCelebration() {
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const celebration = document.createElement('div');
+            celebration.className = 'rainbow-celebration';
+            celebration.innerHTML = ['🌈', '🎨', '🦄', '💫', '🌟', '✨', '🎭', '🎪'][Math.floor(Math.random() * 8)];
+            celebration.style.position = 'fixed';
+            celebration.style.left = Math.random() * 100 + '%';
+            celebration.style.top = Math.random() * 100 + '%';
+            celebration.style.fontSize = '3rem';
+            celebration.style.pointerEvents = 'none';
+            celebration.style.zIndex = '1000';
+
+            document.body.appendChild(celebration);
+
+            setTimeout(() => celebration.remove(), 2000);
+        }, i * 200);
     }
 }
 
@@ -124,7 +168,7 @@ export function updateVibeMessage() {
     } else if (gameState.streak >= 5) {
         messages = ["ON FIRE! 🔥", "STREAK MASTER! ⚡", "UNSTOPPABLE! 🚀"];
     } else if (gameState.score >= 25) {
-        messages = ["EXPERT CATCHER! 🎯", "DANCE MASTER! 💃", "LIGHTNING FAST! ⚡"];
+        messages = ["EXPERT CATCHER! 🎯", "DANCE MASTER! 💃", "LIGHTNING FAST! ⚡", "RAINBOW POWER! 🌈"];
     } else {
         messages = [
             "Nice catch! 🎯",
@@ -132,10 +176,17 @@ export function updateVibeMessage() {
             "You got him! 🔥",
             "Dancing master! ⚡",
             "Keep it up! 🌟",
-            "On fire! 🚀"
+            "On fire! 🚀",
+            "Rainbow magic! 🌈"
         ];
     }
 
     const vibeElement = document.getElementById('vibeMessage');
     vibeElement.textContent = messages[Math.floor(Math.random() * messages.length)];
+    
+    // Add rainbow border for high streaks
+    if (gameState.streak >= 15) {
+        vibeElement.classList.add('rainbow-border');
+        setTimeout(() => vibeElement.classList.remove('rainbow-border'), 3000);
+    }
 }
