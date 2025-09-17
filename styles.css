@@ -1178,8 +1178,8 @@ body::before {
 }
 
 .dancing-svg, .evil-svg {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
     animation: svg-dance 0.8s ease-in-out infinite;
 }
@@ -1635,8 +1635,8 @@ body::before {
 }
 
 .start-dancing-svg, .start-golden-svg, .start-evil-svg {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     margin-bottom: 1rem;
     filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.3));
 }
@@ -1692,8 +1692,8 @@ body::before {
 /* Mobile-specific adjustments for SVG */
 @media (max-width: 768px) {
     .dancing-svg {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
     }
     
     .dancing-man {
@@ -1705,8 +1705,8 @@ body::before {
     }
     
     .start-dancing-svg, .start-golden-svg, .start-evil-svg {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
     }
     
     .start-content h2 {
